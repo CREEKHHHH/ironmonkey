@@ -1,0 +1,28 @@
+{
+"query":{
+"filtered":{
+	"query":{
+	"fuzzy":{
+"name":{"value":"yofurt",
+"fuzziness":2.0}
+	}
+	}
+	,
+"filter": {
+        "term": {
+          "categories":["FRUIT","BAKED"]
+        }
+		}}}}
+
+{
+    "facets" : {
+      "tags" : { "terms" : {"field" : "categories"} }
+    }
+  }
+
+
+{"name_suggest":{
+	"text":"oat",
+	"completion":{"field":"name_suggest"}
+	}
+}
