@@ -16,7 +16,24 @@ class FoodItem(models.Model):
     Carb=models.FloatField()
     Fat=models.FloatField()
     Protein=models.FloatField()
+    carbPerc=models.FloatField(editable=False)
+    fatPerc=models.FloatField(editable=False)
+    proteinPerc=models.FloatField(editable=False)
+    servingSize=models.FloatField()
+    servingUnits=models.CharField(max_length=100)
     Categories=models.ManyToManyField(FoodCategories)
+
+    def save(self):
+        t=self.Carb+self.Protein+self.Fat*2
+        self.carbPerc=(self.Carb/t)*100
+        self.fatPerc=(self.Fat/t)*100
+        self.proteinPerc=(self.Carb/t)*100
+        super(FoodItem,self).save()
+
+
+
+
+
 
     def __unicode__(self):
         return self.ItemName

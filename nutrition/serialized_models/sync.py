@@ -22,6 +22,11 @@ def sync():
         for cat in item.Categories.all():
             ls.append(cat.CategoryName)
         temp['categories']=ls
+        temp['carbPerc']=item.carbPerc
+        temp['fatPerc']=item.fatPerc
+        temp['proteinPerc']=item.proteinPerc
+        temp['serving_size']=item.servingSize
+        temp['serving_units']=item.servingUnits
         rendered= JSONRenderer().render(temp)
         conn=httplib.HTTPConnection("127.0.0.1:9200")
         headers = {"Content-type": "application/x-www-form-urlencoded","Accept": "text/plain"}

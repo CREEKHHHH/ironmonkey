@@ -26,3 +26,19 @@
 	"completion":{"field":"name_suggest"}
 	}
 }
+#### Linear Scoring
+{"from":2,
+"size":1,
+"query":{
+	"function_score":{
+		"functions":[
+		{"linear":{
+		"carbPerc":{
+		"origin":84,
+		"scale":1}}}],
+		"query": {
+          "match_all": {}
+        }}
+}
+}
+####Query Ref with Filtering Scoring and pagination

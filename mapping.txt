@@ -16,12 +16,17 @@ PUT food/item/_mapping
 	"carb_gms":{"type":"float"},
 	"fat_gms":{"type":"float"},
 	"protein_gms":{"type":"float"},
+	"carbPerc":{"type":"float"},
+	"fatPerc":{"type":"float"},
+	"proteinPerc":{"type":"float"},
+	"serving_size":{"type":"float"},
+	"serving_units":{"type":"string"},
 	"categories":{"type":"string","index":"not_analyzed"}
 		}
 	}
 }
 ## Create Index
-curl -XPUT 'http://localhost:9200/twitter/' -d '{
+curl -XPUT 'http://localhost:9200/food/' -d '{
     "settings" : {
         "index" : {
             "number_of_shards" : 3,
