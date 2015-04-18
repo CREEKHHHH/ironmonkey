@@ -9,7 +9,7 @@ pageSize=4
 @api_view(['GET'])
 def searchAPI(request):
     text=request.GET['txt']
-    pageNo=request.GET['pageNo']
+    pageNo=1#request.GET['pageNo']
     conn=httplib.HTTPConnection("127.0.0.1:9200")
     headers = {"Content-type": "application/x-www-form-urlencoded","Accept": "text/plain"}
     url='/food/item/_search?q='+text+'&from='+str(pageNo)+'&size='+str(pageSize)
@@ -33,11 +33,13 @@ def parseAutoCompResponse(response):
     response=json.loads(response)
     pld=response["name_suggest"][0]["options"]
     respDict=[]
+    print pld
     for ech in pld:
         temp={}
-        temp["id"]=ech["payload"]["id"]
-        temp["view"]=ech["text"]
-        respDict.append(temp)
+        if('payload' in ech):
+            temp["id"]=ech["payload"]["id"]
+            temp["view"]=ech["text"]
+            respDict.append(temp)
     return respDict
 
 def getDictionaryForAutoComplete():
