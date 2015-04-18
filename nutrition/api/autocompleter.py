@@ -36,7 +36,7 @@ def parseAutoCompResponse(response):
     for ech in pld:
         temp={}
         temp["id"]=ech["payload"]["id"]
-        temp["text"]=ech["text"]
+        temp["view"]=ech["text"]
         respDict.append(temp)
     return respDict
 
