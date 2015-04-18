@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+          <link rel="stylesheet" type="text/css"  href="/static/css/bootstrap.css">
+
+</HEAD>
+<BODY>
+
+<div class="row offset1">
+<div class="container panel panel-default col-lg-6 col-md-offset-3">
+
+    <div class="panel-heading row">
+      <div class="col-lg-6 col-md-offset-3">
+      Search for the Correct Food Item
+      </div>
+   </div>
+    <div class="row">
+        <div class="panel-body">
+        <div class="">
+            <var id="result-container" class="result-container"></var>
+             <div class="input-group">
+                <input type="text" class="form-control ui-autcomplete" id="control" placeholder="Search for..." autocomplete="on">
+                 <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Go!</button>
+                </span>
+             </div>
+        </div>
+        </div>
+        </div>
+    </div>
+  </div>
+<script>
+var foodId;
+var sourceFunc=function(request,callback){
+    document.foodId=null;
+    var searchTerm=request.term;
+    var url='api/search?txt='+searchTerm;
+    var remoteSearch=$.ajax({
+    url:url,method:"GET",dataType:"json"
+    ,success:function(data){
+    callback($.map(data,function(val){
+    return {view:val.view,label:val.view,id:val.id};
+    return val.view;
+    }));
+    }
+    })
+    remoteSearch.done();
+
+}
+var selectFunc=function(event,ui){
+    var label=ui.item.label;
+    var id=ui.item.id;
+    document.foodId=id;
+    alert(document.foodId);
+}
+$('#control').autocomplete({
+    source:sourceFunc,
+    select:selectFunc});
+</script>
+
+</BODY>
+</HTML>
