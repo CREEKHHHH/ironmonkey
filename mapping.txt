@@ -6,31 +6,41 @@ PUT food/item/_mapping
 	"_id":{"type":"integer"},
 	"name":{"type":"string","index":"analyzed"},
 	"name_not_anal":{"type":"string","index":"not_analyzed"},
+	"mfg":{"type":"string","index":"analyzed"},
+	"itemDesc":{"type":"string","index":"analyzed"},
+	"imgUrl":{"type":"string"},
+	"url":{"type":"string"},
 	"name_suggest":{
 	    "type":"completion",
 	     "index_analyzer" : "simple",
          "search_analyzer" : "simple",
          "payloads" : true
 	                },
+
 	"total_cal":{"type":"float"},
 	"carb_gms":{"type":"float"},
 	"fat_gms":{"type":"float"},
 	"protein_gms":{"type":"float"},
+	"sugar_gms":{"type":"float"},
+
 	"carbPerc":{"type":"float"},
 	"fatPerc":{"type":"float"},
 	"proteinPerc":{"type":"float"},
-	"serving_size":{"type":"float"},
-	"serving_units":{"type":"string"},
-	"categories":{"type":"string","index":"not_analyzed"}
-		}
+	"sugarPerc":{"type":"float"},
+
+	"serving_gram":{"type":"float"},
+	"serving_desc":{"type":"string"},
+	"serving_size":{"type":"string"}
+
+			}
 	}
 }
 ## Create Index
 curl -XPUT 'http://localhost:9200/food/' -d '{
     "settings" : {
         "index" : {
-            "number_of_shards" : 3,
-            "number_of_replicas" : 2
+            "number_of_shards" : 1,
+            "number_of_replicas" : 1
         }
     }
 }'

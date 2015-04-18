@@ -3,7 +3,7 @@ from django.conf.urls import patterns, include, url
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
-
+from nutrition.api.autocompleter import autocomplete,searchAPI
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'workoutplan.views.home', name='home'),
@@ -13,5 +13,7 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
+    url(r'^api/search/',searchAPI),
+    url(r"^api/",autocomplete),
     url(r'^admin/', include(admin.site.urls)),
 )
