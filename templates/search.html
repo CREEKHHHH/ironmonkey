@@ -3,9 +3,9 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-          <link rel="stylesheet" type="text/css"  href="/static/css/bootstrap.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css"  href="/static/css/bootstrap.css">
 
 </HEAD>
 <BODY>
@@ -21,7 +21,7 @@
     <div class="row">
         <div class="panel-body">
         <div class="">
-            <var id="result-container" class="result-container"></var>
+           <!-- <var id="result-container" class="result-container"></var>-->
              <div class="input-group">
                 <input type="text" class="form-control ui-autcomplete" id="control" placeholder="Search for..." autocomplete="on">
                  <span class="input-group-btn">
@@ -31,6 +31,29 @@
         </div>
         </div>
         </div>
+        <ul>
+        {% for ech in data %}
+            <li><h4>{{ ech.name }}</h4></li>
+            Total Calories: {{ech.totalCal}} Kcal<br>
+            <table class="table">
+                <tr>
+                <th>Carbohydrate</th>
+                <th>Fat</th>
+                <th>Protein</th>
+                <th>Sugar</th>
+
+                </tr>
+                <tr>
+            <td>{{ech.carb}} gms</td>
+            <td>{{ech.fat}} gms</td>
+            <td>{{ech.protein}} gms</td>
+            <td>{{ech.sugar}} gms</td>
+                </tr>
+            </table>
+            <hr>
+        {% endfor %}
+        </ul>
+
     </div>
   </div>
 <script>
@@ -60,6 +83,12 @@ var selectFunc=function(event,ui){
 $('#control').autocomplete({
     source:sourceFunc,
     select:selectFunc});
+
+$('.input-group-btn').click(function(){
+var txt=$('#control').val()
+txt=txt.replace(" ","%20");
+window.location.href="http://localhost:5252/?text="+txt
+});
 </script>
 
 </BODY>
