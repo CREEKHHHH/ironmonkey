@@ -21,7 +21,8 @@
   }
 
 
-{"name_suggest":{
+{
+"name_suggest":{
 	"text":"oat",
 	"completion":{"field":"name_suggest"}
 	}
@@ -42,3 +43,31 @@
 }
 }
 ####Query Ref with Filtering Scoring and pagination
+
+
+	{
+		"query": {
+                       "filtered":{
+"filter":{"term":{"_id":150}},
+"query":{match_all:{}}
+}
+
+	}
+	}
+
+{
+	"query": {
+	"filtered":{
+		"filter":{
+		"and":[
+		{"range":{"carbPerc":{"gte":70,"lte":90}}},
+
+		{"range":{"fatPerc":{"gte":70,"lte":90}}},
+
+		{"range":{"sugarPerc":{"gte":70,"lte":90}}}
+		]},
+		"query":{match_all:{}}
+	}
+
+}
+}
