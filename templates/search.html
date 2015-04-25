@@ -13,39 +13,46 @@
 <div class="row offset1">
     <div class="container panel panel-default col-lg-6 col-md-offset-3">
         <div class="panel-heading row">
-            <div class="col-lg-11 col-md-offset-1">
-               Search for the Correct Food Item 
+            <div class="col-lg-6 col-md-offset-3">
+               Search for the Correct Food Item
             </div>
         </div>
     <div class="row">
         <div class="panel-body">
              <div class="">
                <!-- <var id="result-container" class="result-container"></var>-->
+                 <form id="searchForm" action="/" method="GET">
                  <div class="input-group">
-                    <input type="text" class="form-control ui-autcomplete" id="control" placeholder="Search for..." autocomplete="on">
+                     <input name="id" class="hidden">
+                    <input name="text" type="text" class="form-control ui-autcomplete" id="control" placeholder="Search for..." autocomplete="on">
                     <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Go!</button>
-                </span>
-             </div>
+                    <button class="btn btn-default" type="submit">Go!</button>
+                    </span>
+                 </div>
+                 </form>
         </div>
         </div>
         </div>
-    {% if page %}
-        I am here
-    {% endif %}
-    <ul class="pagination">
-    <li><a href="#">&laquo;</a></li>
-    <li><a href="#">1</a></li>
-     <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li><a href="#">&raquo;</a></li>
-    </ul>
-
-
+        {% if totalPages > 1 %}
+        <ul class="pagination">
+        {% if curr_page > 1 %}
+                <li><a href="/?{{url}}&pageNo={{ curr_page|add:'-1' }}">&laquo;</a></li>
+        {% else %}
+                <li><a href="/?{{url}}&pageNo={{curr_page}}">&laquo;</a></li>
+        {% endif %}
+         {% for i in totalPageRange %}
+            {% if i = curr_page %}<li class="active">{% else %}<li>{% endif %}
+            <a  href="/?{{url}}&pageNo={{i}}">{{i}}</a></li>
+          {% endfor  %}
+        {% if curr_page > 1 %}
+                <li><a href="/?{{url}}&pageNo={{ curr_page|add:'+1' }}">&raquo;</a></li>
+        {% else %}
+                <li><a href="/?{{url}}&pageNo={{curr_page}}">&raquo;</a></li>
+        {% endif %}
+        {% endif %}
+        </ul>
         <ul>
-        {% for ech in data %}
+        {% for ech in results %}
             <li><h4>{{ ech.name }}</h4></li>
             Total Calories: {{ech.totalCal}} Kcal<br>
             <table class="table">
@@ -80,7 +87,6 @@ var sourceFunc=function(request,callback){
     ,success:function(data){
     callback($.map(data,function(val){
     return {view:val.view,label:val.view,id:val.id};
-    return val.view;
     }));
     }
     })
@@ -91,17 +97,19 @@ var selectFunc=function(event,ui){
     var label=ui.item.label;
     var id=ui.item.id;
     document.foodId=id;
-    alert(document.foodId);
+   $(".input-group input[name='id']").val((document.foodId));
+    $("#searchForm").submit();
 }
 $('#control').autocomplete({
     source:sourceFunc,
     select:selectFunc});
 
+/*
 $('.input-group-btn').click(function(){
 var txt=$('#control').val()
 txt=txt.replace(" ","%20");
 window.location.href="http://localhost:5252/?text="+txt
-});
+});*/
 </script>
 
 </BODY>

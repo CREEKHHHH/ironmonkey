@@ -24,9 +24,9 @@ def getESResultsForTextSearch(text=None,pageNo=defaultPgNo,size=defaultSizeNo):
     response=conn.getresponse().read()
     data=getListOfFoodItemDTO(json.loads(response))
     conn.close()
+    data['totalPages']=int(data['hits']/size)
+    data['curr_page']=pageNo
     return data
-
-    pass
 
 
 def getESResultsForIdSearch(id=None):
@@ -43,7 +43,10 @@ def getESResultsForIdSearch(id=None):
     conn.request("POST",url=url,headers=headers,body=rendered)
     response=conn.getresponse().read()
     data=getListOfFoodItemDTO(json.loads(response))
+    print data
     conn.close()
+    data['totalPages']=1
+    data['curr_page']=1
     return data
 
 
@@ -57,6 +60,8 @@ def getESResultsForAll(pageNo=defaultPgNo,size=defaultSizeNo):
     conn.request("POST",url,rendered,headers)
     response=conn.getresponse().read()
     data=getListOfFoodItemDTO(json.loads(response))
+    data['totalPages']=int(data['hits']/size)
+    data['curr_page']=pageNo
     conn.close()
     return data
 
