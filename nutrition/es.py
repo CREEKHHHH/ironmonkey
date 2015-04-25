@@ -9,7 +9,7 @@ headers = {"Content-type": "application/x-www-form-urlencoded","Accept": "text/p
 ES_URL=settings.ES_URL
 defaultPgNo=1
 defaultSizeNo=10
-replacmentMargin=100
+replacmentMargin=10
 
 def getESResultsForTextSearch(text=None,pageNo=defaultPgNo,size=defaultSizeNo):
     if text==None:
@@ -69,10 +69,35 @@ def getESResultsForViableReplacement(carbPerc,proteinPerc,fatPerc,sugarPerc,page
     fatRng={'range':{'fatPerc':{"lte":(fatPerc+replacmentMargin),"gte":(fatPerc-replacmentMargin)}}}
     proteinRng={'range':{'proteinPerc':{"lte":(proteinPerc+replacmentMargin),"gte":(proteinPerc-replacmentMargin)}}}
     sugarRng={'range':{'sugarPerc':{"lte":(sugarPerc+replacmentMargin),"gte":(sugarPerc-replacmentMargin)}}}
+    query={"function_score":{"functions":[
+		{"linear":{
+		"carbPerc":{
+		"origin":carbPerc,
+		"scale":1}}}
+    ,	{"linear":{
+		"fatPerc":{
+		"origin":fatPerc,
+		"scale":1}}}
+    ,	{"linear":{
+		"sugarPerc":{
+		"origin":sugarPerc,
+		"scale":1}}}
+    ,	{"linear":{
+		"proteinPerc":{
+		"origin":proteinPerc,
+		"scale":1}}}
+    ],
+		"query": {
+          "match_all": {}
+        }}
+}
     params={'query':{'filtered':{
-        "filter":{"and":[carbRng,fatRng,proteinRng,sugarRng]},'query':{'match_all':{}}
+        "filter":{"and":[carbRng,fatRng,proteinRng,sugarRng]},'query':query
     }}}
 
+    '''params={'query':{'filtered':{
+        "filter":{"and":[carbRng,fatRng,proteinRng,sugarRng]},'query':{'match_all':{}}
+    }}}'''
     params['from']=((pageNo)-1)*size
     params['size']=size
     rendered=JSONRenderer().render(params)

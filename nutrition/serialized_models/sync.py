@@ -9,6 +9,9 @@ def sync():
         temp['_id']=item.id
         temp['name']=item.itemName
         temp['name_not_anal']=item.itemName
+        temp['mfg']=item.mfgName
+        temp['itemDescription']=item.itemDescription
+
         sugg={}
         sugg['input']=item.itemName
         pld={"id":item.id}

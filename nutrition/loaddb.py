@@ -1,5 +1,5 @@
 __author__ = 'sandeep.polisetty'
-import urllib,re,os
+import urllib2,re,os,sys
 pattern=re.compile("(\(w+\))(w+)")
 from BeautifulSoup import BeautifulSoup as bs
 from nutrition.models  import FoodItem
@@ -7,11 +7,14 @@ fileLink=os.path.join(os.getcwd(),'nutrition\\urls.txt')
 # Takes the Url.txt File as input and gets Url for categories as generator Function
 def get_url():
     def urlgen(line):
+        line=line.strip()
         url,pg=line.split()
         pg=int(pg)
+        print url
         yield url
         if(pg>=1):
             for i in range(1,pg-1):
+                print url+"-"+str(i)
                 yield url+"-"+str(i)
     with open(fileLink) as fp:
         for line in fp:
@@ -23,7 +26,7 @@ def getFloat(element):
 
 #Takes input of get_url
 def getFoodItemNutritionPage(pageUrl):
-    page=urllib.urlopen(pageUrl)
+    page=urllib2.urlopen(pageUrl,timeout=4)
     pageSoup=bs(page.read())
     paginatedList=pageSoup.findAll('div','browseright')[0].findAll('li')
     def getDictOfNameMfgDesc(pText):
@@ -59,7 +62,7 @@ def getFoodItemNutritionPage(pageUrl):
 def getDictionaryOfAllNutritionalData(temDic):
     #url="http://www.caloriecount.com/calories-loven-fresh-bread-i299967"
     url=temDic['url']
-    response=urllib.urlopen(url)
+    response=urllib2.urlopen(url,timeout=4)
     sp=bs(response.read())
     ntlabel=sp.findAll('div','nutrition-label')
     foodPhoto=sp.find('div','food-photo')
@@ -101,7 +104,15 @@ def loadObject(data):
 def update_db():
     for mother_url in get_url():
         for page_url in mother_url:
-            for nutritionPage in getFoodItemNutritionPage(page_url):
-                loadObject(getDictionaryOfAllNutritionalData(nutritionPage))
+            try:
+                foodItmNutritionPage=getFoodItemNutritionPage(page_url)
+                for nutritionPage in foodItmNutritionPage:
+                    print nutritionPage
+                    try:
+                        loadObject(getDictionaryOfAllNutritionalData(nutritionPage))
+                    except:
+                         print "Unexpected error:", sys.exc_info()[0]
+            except:
+                print "Unexpected error:", sys.exc_info()[0]
             #loadObject(getDictionaryOfAllNutritionalData(getFoodItemNutritionPage(page_url)))
 

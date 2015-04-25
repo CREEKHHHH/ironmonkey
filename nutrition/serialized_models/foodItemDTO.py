@@ -17,7 +17,8 @@ class FoodItemDTO():
         self.serving_gram=info['serving_gram']
         self.serving_desc=info['serving_desc']
         self.serving_size=info['serving_size']
-
+        self.mfgName=info['mfg']
+        self.itemDescription=info['itemDescription']
 
     pass
 
