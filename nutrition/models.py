@@ -40,8 +40,12 @@ class FoodItem(models.Model):
 
     def save(self):
         t=self.totalCal
+        self.carbPerc=0
+        self.fatPerc=0
+        self.proteinPerc=0
+        self.sugarPerc=0
         if(t!=0):
-            if self.carb !=None: self.carbPerc=4*(self.carb/t)*100
+            if self.carb !=None:self.carbPerc=4*(self.carb/t)*100
             if self.sugar!=None: self.sugarPerc=4*(self.sugar/t)*100
             if self.fat!=None: self.fatPerc=8*(self.fat/t)*100
             if self.protein!=None: self.proteinPerc=4*(self.protein/t)*100

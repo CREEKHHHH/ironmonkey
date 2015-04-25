@@ -6,15 +6,17 @@
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <link rel="stylesheet" type="text/css"  href="/static/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css"  href="/static/css/admin.css">
 
     </HEAD>
+
 <BODY>
 
-<div class="row offset1">
-    <div class="container panel panel-default col-lg-6 col-md-offset-3">
+<div class="row offset1" id="main">
+    <div class="container panel panel-default col-lg-9 col-md-offset-1">
         <div class="panel-heading row">
             <div class="col-lg-6 col-md-offset-3">
-               Search for the Correct Food Item
+              <h2> Select Meal Component</h2>
             </div>
         </div>
     <div class="row">
@@ -33,45 +35,39 @@
         </div>
         </div>
         </div>
-        {% if totalPages > 1 %}
-        <ul class="pagination">
-        {% if curr_page > 1 %}
-                <li><a href="/?{{url}}&pageNo={{ curr_page|add:'-1' }}">&laquo;</a></li>
-        {% else %}
-                <li><a href="/?{{url}}&pageNo={{curr_page}}">&laquo;</a></li>
-        {% endif %}
-         {% for i in totalPageRange %}
-            {% if i = curr_page %}<li class="active">{% else %}<li>{% endif %}
-            <a  href="/?{{url}}&pageNo={{i}}">{{i}}</a></li>
-          {% endfor  %}
-        {% if curr_page > 1 %}
-                <li><a href="/?{{url}}&pageNo={{ curr_page|add:'+1' }}">&raquo;</a></li>
-        {% else %}
-                <li><a href="/?{{url}}&pageNo={{curr_page}}">&raquo;</a></li>
-        {% endif %}
-        {% endif %}
-        </ul>
+        {% include "paginate.html" %}
         <ul>
-        {% for ech in results %}
-            <li><h4>{{ ech.name }}</h4></li>
-            Total Calories: {{ech.totalCal}} Kcal<br>
-            <table class="table">
+        <table class="table">
                 <tr>
-                <th>Carbohydrate</th>
+                <th>Name</th>
+                    <th>Carbohydrate</th>
                 <th>Fat</th>
                 <th>Protein</th>
                 <th>Sugar</th>
+                <th>Search</th>
 
                 </tr>
-                <tr>
+
+         {% for ech in results %}
+            <tr>
+                <td>
+                    {{ ech.name }}<br>
+                Total Calories: {{ech.totalCal}} Kcal
+                </td>
             <td>{{ech.carb}} gms</td>
             <td>{{ech.fat}} gms</td>
             <td>{{ech.protein}} gms</td>
             <td>{{ech.sugar}} gms</td>
+            <td>
+                <a href="replace/?id={{ech.id}}"><button type="button" class="btn btn-default btn-lg">
+  <span  class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
+</button></a></td>
+
                 </tr>
-            </table>
-            <hr>
+
+
         {% endfor %}
+         </table>
         </ul>
 
     </div>

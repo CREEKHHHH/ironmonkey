@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<HTML>
+    <HEAD>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css"  href="/static/css/bootstrap.css">
+    </HEAD>
+<body>
+
+<div class="row offset1" id="main">
+    <div class="container panel panel-default col-lg-9 col-md-offset-1">
+        <div class="panel-heading row ">
+            <div class="col-lg-5 well">
+
+                <h4>{{ selectedItem.name }}</h4>
+            Total Calories: {{selectedItem.totalCal}} Kcal<br>
+            Serving size: {{selectedItem.serving_size}} {{selectedItem.serving_desc}} ({{selectedItem.serving_gram}}) gm  <br>
+
+
+            </div>
+            <div class="col-lg-7">
+
+            <table class="table">
+                <tr>
+                <th>Carbohydrate</th>
+                <th>Fat</th>
+                <th>Protein</th>
+                <th>Sugar</th>
+
+                </tr>
+                <tr>
+            <td>{{ selectedItem.carbPerc }}%</td>
+            <td>{{ selectedItem.fatPerc }}%</td>
+            <td>{{ selectedItem.proteinPerc }}%</td>
+            <td>{{ selectedItem.sugarPerc }}%</td>
+                </tr>
+                
+            </table>
+                {% include "paginate.html" %}
+
+            </div>
+
+           </div>
+                <div class="row">
+            <div class="panel-body">
+            <div class="">
+                <table class="table">
+                <tr>
+                <th>Name</th>
+                <th>Carb</th>
+                <th>Fat</th>
+                <th>Protein</th>
+                <th>Sugar</th>
+                </tr>
+
+             {% for ech in results %}
+                    <tr>
+             <td>{{ ech.name }}<br>
+            Base serving ref: {{ech.serving_size}} {{ech.serving_desc}} ({{ech.serving_gram}}) gm  <br>
+            <b>Replacement Serving:{{ech.replacement}}  (gms)</b>                  </td>
+            <td>{{ ech.carbPerc }}%</td>
+            <td>{{ ech.fatPerc }}%</td>
+            <td>{{ ech.proteinPerc}}%</td>
+            <td>{{ech.sugarPerc}}%</td>
+                </tr>
+             {% endfor %}
+            </table>
+             </div>
+        </div>
+        </div>
+</body>
+</html>

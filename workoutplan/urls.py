@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
-from nutrition.views import searchFoodItem
+from nutrition.views import searchFoodItem,replaceFoodItem
 admin.autodiscover()
 from nutrition.api.autocompleter import autocomplete,searchAPI
 urlpatterns = patterns('',
@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     url(r'^api/search/',searchAPI),
     url(r"^api/",autocomplete),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^replace/',replaceFoodItem),
     url(r'^',searchFoodItem),
 
 )

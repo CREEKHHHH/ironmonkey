@@ -1,0 +1,19 @@
+
+        {% if totalPages > 1 %}
+        <ul class="pagination">
+        {% if curr_page > 1 %}
+                <li><a href="/{{root_url}}/?{{url}}&pageNo={{ curr_page|add:'-1' }}">&laquo;</a></li>
+        {% else %}
+                <li><a href="/{{root_url}}?{{url}}&pageNo={{curr_page}}">&laquo;</a></li>
+        {% endif %}
+         {% for i in totalPageRange %}
+            {% if i = curr_page %}<li class="active">{% else %}<li>{% endif %}
+            <a  href="/{{root_url}}?{{url}}&pageNo={{i}}">{{i}}</a></li>
+          {% endfor  %}
+        {% if curr_page > 1 %}
+                <li><a href="/{{root_url}}?{{url}}&pageNo={{ curr_page|add:'+1' }}">&raquo;</a></li>
+        {% else %}
+                <li><a href="/{{root_url}}?{{url}}&pageNo={{curr_page}}">&raquo;</a></li>
+        {% endif %}
+        {% endif %}
+        </ul>
