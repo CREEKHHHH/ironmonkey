@@ -10,11 +10,11 @@ def get_url():
         line=line.strip()
         url,pg=line.split()
         pg=int(pg)
-        print url
+        #print url
         yield url
         if(pg>=1):
-            for i in range(1,pg-1):
-                print url+"-"+str(i)
+            for i in range(1,pg):
+                #print url+"-"+str(i)
                 yield url+"-"+str(i)
     with open(fileLink) as fp:
         for line in fp:
@@ -67,7 +67,7 @@ def getDictionaryOfAllNutritionalData(temDic):
     ntlabel=sp.findAll('div','nutrition-label')
     foodPhoto=sp.find('div','food-photo')
     dic={}
-    print url
+    #print url
     if(ntlabel[0].find("span","miniCarb-orig")!=None): dic['carb']=getFloat(ntlabel[0].find("span","miniCarb-orig").getText())
     if(ntlabel[0].find("span","miniSugar-orig")!=None): dic['sugar']=getFloat(ntlabel[0].find("span","miniSugar-orig").getText())
     if(ntlabel[0].find("span","miniProtein-orig")!=None): dic['protein']=getFloat(ntlabel[0].find("span","miniProtein-orig").getText())
@@ -105,13 +105,16 @@ def update_db():
     for mother_url in get_url():
         for page_url in mother_url:
             try:
+                i=0
                 foodItmNutritionPage=getFoodItemNutritionPage(page_url)
                 for nutritionPage in foodItmNutritionPage:
-                    print nutritionPage
+                    i=i+1
+                    #print nutritionPage
                     try:
                         loadObject(getDictionaryOfAllNutritionalData(nutritionPage))
                     except:
                          print "Unexpected error:", sys.exc_info()[0]
+                print page_url + "  results:" + str(i)
             except:
                 print "Unexpected error:", sys.exc_info()[0]
             #loadObject(getDictionaryOfAllNutritionalData(getFoodItemNutritionPage(page_url)))

@@ -63,6 +63,12 @@ class FoodItem(models.Model):
 class FoodItemAdmin(admin.ModelAdmin):
     pass
 admin.site.register(FoodItem,FoodItemAdmin)
+
+class FoodTag(models.Model):
+    id=models.IntegerField(primary_key=True)
+    tagValue=models.IntegerField()
+
+
 '''
 class FoodCategoriesAdmin(admin.ModelAdmin):
     pass
