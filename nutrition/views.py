@@ -1,6 +1,8 @@
 # Create your views here.
+
 from django.shortcuts import render_to_response
 from nutrition.es import *
+from nutrition.tagConstants import *
 maxPageShown=7
 def replaceFoodItem(request):
     if request.GET.has_key('id') and request.GET['id']!="":
@@ -43,5 +45,34 @@ def searchFoodItem(request):
     print results_dict['totalPages']
     if results_dict['totalPages']>maxPageShown:
         results_dict['totalPages']=maxPageShown
+
     results_dict['totalPageRange']=range(1,results_dict['totalPages'])
     return render_to_response('search.html',results_dict)
+
+def homePage(request):
+    return render_to_response('home.html',{})
+
+def getTotalPageRange(pageNo,totalPages):
+    if(totalPages<6):
+        return range(1,totalPages)
+    a=pageNo-3
+    b=pageNo+3
+    if(a<1):
+        b=b-a
+        a=1
+        return range(a,b)
+    if(b>totalPages):
+        a=a+totalPages-b
+        b=totalPages
+    return range(a,b)
+
+def browse(request,id):
+    if request.GET.has_key('pageNo'):
+        pageNo=int(request.GET['pageNo'])
+    else:
+        pageNo=1
+    results=getCatgoryResults(id,pageNo)
+    results['totalPageRange']=getTotalPageRange(pageNo,results['totalPages'])
+    results['root_url']='browse/'+str(id)
+
+    return render_to_response('category.html',results)

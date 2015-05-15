@@ -1,0 +1,98 @@
+<HTML xmlns="http://www.w3.org/1999/html">
+    <HEAD>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css"  href="/static/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css"  href="/static/css/admin.css">
+<style>
+    body{background-color:grey}
+   .ui-autocomplete{font-size:20px;font-family:sherif;}
+    h1{color:#FFCCCC;font-family:stencil;font-size:400%;}
+    img{height:50%;width:50%;float:left;}
+    #cat{position:relative;left:10%;top:-20px;}
+    li{font-size:20px;}
+</style>
+    </HEAD>
+<BODY>
+
+    <div class="row offset1" id="main">
+    <div class="container panel panel-default col-lg-9 col-md-offset-1">
+        <div class="panel-heading row" style="background-color:black">
+            <div class="col-lg-6 col-md-offset-3">
+              <h1> IRON MONKEY</h1>
+            </div>
+        </div>
+        <div class="row" style="">
+        <div class="panel-body" style="text-align:center;width:50%;margin:auto;">
+             <div class="">
+                 <var id="result-container" class="result-container"></var>
+                 <form id="searchForm" action="/" method="GET">
+                 <div class="input-group">
+                     <input name="id" class="hidden">
+                    <input name="text" type="text" class="form-control ui-autocomplete" id="control" placeholder="Search for Food Replacement..." autocomplete="on">
+                    <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">Go!</button>
+                    </span>
+                 </div>
+                 </form>
+        </div>
+        </div>
+        </div>
+        <div class="row panel-body" >
+        <img src="/static/image/1.jpg">
+        <div class="panel" style="background-color:black;border:solid;text-align:center;width:30%;float:left;font-family:stencil;" id="cat">
+            <div class="panel-heading btn-default blue" style="background-color:silver;" ><h2>Categories</h2></div>
+             <ul class="list-group " style="overflow:hidden;background-color:Silver">
+           <a href="/browse/11"> <li class="list-group-item btn-default">Post Workout </li></a>
+            <a href="/browse/7"><li class="list-group-item btn-default">Bed Time Foods</li></a>
+           <a href="/browse/2"> <li class="list-group-item btn-default">Healthy Snack</li></a>
+            <a href="/browse/3"><li class="list-group-item btn-default">UNHEALTHY FOOD</li></a>
+           <a href="/browse/5"> <li class="list-group-item btn-default">Early Morning Meal</li></a>
+            </ul>
+        </div></div>
+
+
+     </div>
+   </div>
+</div>
+<script>
+var foodId;
+var sourceFunc=function(request,callback){
+    document.foodId=null;
+    var searchTerm=request.term;
+    var url='http://localhost:5252/api/search?txt='+searchTerm;
+    var remoteSearch=$.ajax({
+    url:url,method:"GET",dataType:"json"
+    ,success:function(data){
+    callback($.map(data,function(val){
+    return {view:val.view,label:val.view,id:val.id};
+    }));
+    }
+    })
+    remoteSearch.done();
+
+}
+var selectFunc=function(event,ui){
+    var label=ui.item.label;
+    var id=ui.item.id;
+    document.foodId=id;
+   $(".input-group input[name='id']").val((document.foodId));
+    $("#searchForm").submit();
+}
+$('#control').autocomplete({
+    source:sourceFunc,
+    select:selectFunc});
+
+/*
+$('.input-group-btn').click(function(){
+var txt=$('#control').val()
+txt=txt.replace(" ","%20");
+window.location.href="http://localhost:5252/?text="+txt
+});*/
+</script>
+
+</BODY>
+</HTML>

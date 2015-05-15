@@ -1,6 +1,10 @@
 __author__ = 'sandeep.polisetty'
-
+from nutrition.models import FoodTag
+from nutrition.tagConstants import getTitle
 class FoodItemDTO():
+    def setTag(self,a):
+        self.tagValue=a
+
     def __init__(self,data):
         self.id=data['_id']
         info=data['_source']
@@ -31,7 +35,8 @@ def getListOfFoodItemDTO(response):
     results=[]
     response=response['hits']['hits']
     for ech in response:
-        print ech
-        results.append(FoodItemDTO(ech))
+        rs=FoodItemDTO(ech)
+        rs.setTag(getTitle(FoodTag.objects.get(id=rs.id).tagValue))
+        results.append(rs)
     result_dict={'hits':total,'results':results}
     return result_dict
