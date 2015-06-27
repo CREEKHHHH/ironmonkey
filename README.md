@@ -1,7 +1,11 @@
 
+###Won me my First Hackathon 
 
+##Application Features
+1.Meal categorized based on best time of comsumption .
+2.Meals replaced assuming that macro nutrient ratio as basis of matching.
 
-
+Flow followd by me as the project progressed .
 
 ## Features implemented so far
 1. models where created
