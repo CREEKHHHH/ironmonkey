@@ -1,20 +1,20 @@
 __author__ = 'sandeep.polisetty'
 import urllib2,re,os,sys
 pattern=re.compile("(\(w+\))(w+)")
-from BeautifulSoup import BeautifulSoup as bs
+from bs4 import BeautifulSoup  as bs
 from nutrition.models  import FoodItem
-fileLink=os.path.join(os.getcwd(),'nutrition\\urls.txt')
+fileLink=os.path.join(os.getcwd(),'nutrition/urls.txt')
 # Takes the Url.txt File as input and gets Url for categories as generator Function
 def get_url():
     def urlgen(line):
         line=line.strip()
         url,pg=line.split()
         pg=int(pg)
-        #print url
+        print url
         yield url
         if(pg>=1):
             for i in range(1,pg):
-                #print url+"-"+str(i)
+                print url+"-"+str(i)
                 yield url+"-"+str(i)
     with open(fileLink) as fp:
         for line in fp:
