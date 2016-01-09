@@ -29,7 +29,7 @@
         <div class="panel-body" style="text-align:center;width:50%;margin:auto;">
              <div class="">
                  <var id="result-container" class="result-container"></var>
-                 <form id="searchForm" action="/" method="GET">
+                 <form id="searchForm" action="/search/" method="GET">
                  <div class="input-group">
                      <input name="id" class="hidden">
                     <input name="text" type="text" class="form-control ui-autocomplete" id="control" placeholder="Search for Food Replacement..." autocomplete="on">
@@ -63,7 +63,7 @@ var foodId;
 var sourceFunc=function(request,callback){
     document.foodId=null;
     var searchTerm=request.term;
-    var url='http://localhost:5252/api/search?txt='+searchTerm;
+    var url='http://localhost:8000/api/search?txt='+searchTerm;
     var remoteSearch=$.ajax({
     url:url,method:"GET",dataType:"json"
     ,success:function(data){

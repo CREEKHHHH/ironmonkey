@@ -75,4 +75,5 @@ def browse(request,id):
     results['totalPageRange']=getTotalPageRange(pageNo,results['totalPages'])
     results['root_url']='browse/'+str(id)
 
+    print results
     return render_to_response('category.html',results)

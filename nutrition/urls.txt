@@ -1,20 +1,18 @@
 http://www.caloriecount.com/calories-baked-products-ic1800 1
-####
 http://www.caloriecount.com/calories-beans-legume-products-ic1600 11
 http://www.caloriecount.com/calories-beef-products-ic1300 2
-http://www.caloriecount.com/calories-beverages-ic1400 23
-http://www.caloriecount.com/calories-breakfast-cereals-ic0800 17
-http://www.caloriecount.com/calories-dairy-egg-products-ic0100 23
-http://www.caloriecount.com/calories-cereal-grains-pasta-ic2000 5
-http://www.caloriecount.com/calories-indian-food-ic3504 8
-http://www.caloriecount.com/calories-fast-foods-ic2100 8
-http://www.caloriecount.com/calories-fish-seafood-products-ic1500 20
-http://www.caloriecount.com/calories-fruits-fruit-juices-ic0900 6
-http://www.caloriecount.com/calories-nut-seed-products-ic1200 15
+http://www.caloriecount.com/calories-beverages-ic1400 2
+http://www.caloriecount.com/calories-breakfast-cereals-ic0800 2
+http://www.caloriecount.com/calories-dairy-egg-products-ic0100 2
+http://www.caloriecount.com/calories-cereal-grains-pasta-ic2000 2
+http://www.caloriecount.com/calories-indian-food-ic3504 2
+http://www.caloriecount.com/calories-fast-foods-ic2100 2
+http://www.caloriecount.com/calories-fish-seafood-products-ic1500 2
+http://www.caloriecount.com/calories-fruits-fruit-juices-ic0900 2
+http://www.caloriecount.com/calories-nut-seed-products-ic1200 2
 http://www.caloriecount.com/calories-meals-entrees-sidedishes-ic2200 1
-###
-http://www.caloriecount.com/calories-soups-sauces-gravies-ic0600 8
-http://www.caloriecount.com/calories-poultry-products-ic0500 3
-http://www.caloriecount.com/calories-pork-products-ic1000 5
-http://www.caloriecount.com/calories-vegetables-ic1100 6
-http://www.caloriecount.com/calories-sweets-ic1900 6
+http://www.caloriecount.com/calories-soups-sauces-gravies-ic0600 2
+http://www.caloriecount.com/calories-poultry-products-ic0500 2
+http://www.caloriecount.com/calories-pork-products-ic1000 2
+http://www.caloriecount.com/calories-vegetables-ic1100 2
+http://www.caloriecount.com/calories-sweets-ic1900 2

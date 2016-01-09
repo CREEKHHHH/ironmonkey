@@ -14,12 +14,16 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     # Uncomment the next line to enable the admin:
         (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
-    url(r'^home/',homePage),
+   url(r'^search/',searchFoodItem),
+ #   url(r'^home/',homePage),
     url(r'^browse/(?P<id>[-\d]+)',browse),
    url(r'^api/search/',searchAPI),
     url(r"^api/",autocomplete),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^replace/',replaceFoodItem),
-    url(r'^',searchFoodItem),
+   url(r'^',homePage),
 
-)
+                       #   url(r'^',searchFoodItem),
+#   url(r'^home/',homePage),
+
+   )
